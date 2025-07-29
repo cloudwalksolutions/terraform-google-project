@@ -82,3 +82,10 @@ variable "use_folder_name" {
   default     = true
 }
 
+
+variable "deletion_policy" {
+  description = "Deletion policy for the project"
+  type        = string
+  default     = "DELETE"
+}
+

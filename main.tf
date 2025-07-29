@@ -14,6 +14,7 @@ resource "google_project" "gcp_project" {
   folder_id       = var.folder_id
   billing_account = var.billing_account
 
+  deletion_policy = var.deletion_policy
 }
 
 
@@ -25,7 +26,6 @@ module "project_apis" {
   activate_apis               = local.api_list
 
   depends_on = [google_project.gcp_project]
-
 }
 
 
