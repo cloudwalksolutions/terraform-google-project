@@ -6,7 +6,11 @@ locals {
   project_suffix = "${local.project_label}-project"
   project_name_  = var.use_folder_name && var.folder_name != "" ? "${var.folder_name}-${local.project_suffix}" : local.project_suffix
   project_name   = local.lifecycle_letter != "" ? "${local.lifecycle_letter}-${local.project_name_}" : local.project_name_
-  project_id     = var.use_random_id ? "${local.project_name}-${random_string.random.result}" : local.project_name
+
+  # A project id is capped at 30 characters and the suffix costs four of them, so the name is
+  # trimmed to fit rather than letting GCP reject the whole apply. The display name keeps its
+  # full spelling.
+  project_id = var.use_random_id ? "${substr(local.project_name, 0, 26)}-${random_string.random.result}" : local.project_name
 
   api_list = concat(var.default_apis, var.additional_apis)
 
