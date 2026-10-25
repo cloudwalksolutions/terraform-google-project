@@ -1,7 +1,8 @@
 
 
 output "project_id" {
-  value = split("/", google_project.gcp_project.id)[1]
+  value      = local.project_id
+  depends_on = [google_project.gcp_project]
 }
 
 output "project_number" {
